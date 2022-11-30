@@ -192,8 +192,7 @@ function generatePassword(arrChosenCharacterTypes) {
     for (var i = 0; i < Number(userPasswordLength); i++) {
       generatedRandomPassword += getRandom(arrChosenCharacterTypes);
     }
-
-    alert("generated random password" + generatedRandomPassword);
+    
     return generatedRandomPassword;
   }
 }
