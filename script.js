@@ -89,7 +89,7 @@ var upperCasedCharacters = [
 ];
 
 // Final generated random password
-var generatedPassword = "";
+var generatedRandomPassword = "";
 
 // Function to prompt user for password options
 function getPasswordOptions() {
@@ -98,72 +98,123 @@ function getPasswordOptions() {
   // Failure to choose any character-type state
   var noCharacterTypesChosen = true;
 
-  function getPasswordLength() {
-    // Length of password. User prompted that it must be between 10 and 64 characters
-    var userPasswordLength = prompt(
-      "Choose a password length between 10 and 64 characters long:"
-    );
+  // couldn't get below to work with nested function
+  // function getPasswordLength() {
+  //   // Length of password. User prompted that it must be between 10 and 64 characters
+  //   var userPasswordLength = prompt(
+  //     "Choose a password length between 10 and 64 characters long:"
+  //   );
 
-    // Validate if quantity of characters chosen by the user is a number between 10 and 64
-    if (
-      isNaN(Number(userPasswordLength)) ||
-      userPasswordLength > 64 ||
-      userPasswordLength < 10
-    ) {
-      userPasswordLength = prompt("Invalid value. Please select a number between 10 and 64:");
-    } else {
-      return userPasswordLength;
-    }
+  //   // Validate if quantity of characters chosen by the user is a number between 10 and 64
+  //   if (
+  //     isNaN(Number(userPasswordLength)) ||
+  //     userPasswordLength > 64 ||
+  //     userPasswordLength < 10
+  //   ) {
+  //     userPasswordLength = prompt(
+  //       "Invalid value. Please select a number between 10 and 64:"
+  //     );
+  //   } else {
+  //     return userPasswordLength;
+  //   }
+  // }
+  // getPasswordLength();
+
+  // Character types options. Validate each input. At least one character type should be selected
+  // Lowercase check
+  if (
+    confirm("Would you like to include lowercase letters in your password?")
+  ) {
+    noCharacterTypesChosen = false;
+    arrChosenCharacterTypes =
+      arrChosenCharacterTypes.concat(lowerCasedCharacters);
   }
-  getPasswordLength();
-  // * Character types
-  //     * Lowercase
-  //     * Uppercase
-  //     * Numeric
-  //     * Special characters ($@%&*, etc)
-  // * Code should validate for each input and at least one character type should be selected
-
-  //validation check
-
-  // typeof
+  // Uppercase
+  if (
+    confirm("Would you like to include uppercase letters in your password?")
+  ) {
+    noCharacterTypesChosen = false;
+    arrChosenCharacterTypes =
+      arrChosenCharacterTypes.concat(upperCasedCharacters);
+  }
+  // Numeric
+  if (
+    confirm("Would you like to include numeric characters in your password?")
+  ) {
+    noCharacterTypesChosen = false;
+    arrChosenCharacterTypes = arrChosenCharacterTypes.concat(numericCharacters);
+  }
+  // Special characters ($@%&*, etc)
+  if (
+    confirm("Would you like to include special characters in your password?")
+  ) {
+    noCharacterTypesChosen = false;
+    arrChosenCharacterTypes = arrChosenCharacterTypes.concat(specialCharacters);
+  }
+  // Validate at least one character type selected
+  if (noCharacterTypesChosen) {
+    alert(
+      "You must select at least one character type to include in your password."
+    );
+  } else {
+    return arrChosenCharacterTypes;
+  }
 }
 // Function for getting a  random element from an array
 function getRandom(arr) {
   //  randomly select from the array with random generator
-  // forEach YES (not map as creates new array (make array please))? for loop?
+  // return arr[Math.floor(Math.random() * arr.length)];
 
-  return arr[Math.floor(Math.random() * arr.length)];
+  const randomIndex = Math.floor(Math.random() * arr.length);
+
+  const item = arr[randomIndex];
+
+  return item;
 }
 
-var special = getRandom(specialCharacters);
-var numeric = getRandom(numericCharacters);
-var lowerCase = getRandom(lowerCasedCharacters);
-var upperCase = getRandom(upperCasedCharacters);
-console.log(special);
-console.log(numeric);
-console.log(lowerCase);
-console.log(upperCase);
-
 // Function to generate password with user input
-function generatePassword() {}
+function generatePassword(arrChosenCharacterTypes) {
+  // Length of password. User prompted that it must be between 10 and 64 characters
+  var userPasswordLength = prompt(
+    "Choose a password length between 10 and 64 characters long:"
+  );
+
+  // Validate if quantity of characters chosen by the user is a number between 10 and 64
+  if (
+    isNaN(Number(userPasswordLength)) ||
+    userPasswordLength > 64 ||
+    userPasswordLength < 10
+  ) {
+    userPasswordLength = prompt(
+      "Invalid value. Please select a number between 10 and 64:"
+    );
+  } else {
+    for (var i = 0; i < Number(userPasswordLength); i++) {
+      generatedRandomPassword += getRandom(arrChosenCharacterTypes);
+    }
+
+    alert("generated random password" + generatedRandomPassword);
+    return generatedRandomPassword;
+  }
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = generatePassword(getPasswordOptions());
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-  getPasswordOptions();
 
   if (password === undefined) {
-    passwordText.value = "Try again! Remember to choose a NUMBER between 10 and 64 and AT LEAST ONE of the character types.";
-  } 
+    passwordText.value =
+      "Try again! Remember to choose a NUMBER between 10 and 64 and AT LEAST ONE of the character types. Password length was: " +
+      passwordText.userPasswordLength +
+      "";
+  }
 }
-
-
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
