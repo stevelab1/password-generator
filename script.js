@@ -185,14 +185,12 @@ function generatePassword(arrChosenCharacterTypes) {
     userPasswordLength > 64 ||
     userPasswordLength < 10
   ) {
-    userPasswordLength = prompt(
-      "Invalid value. Please select a number between 10 and 64:"
-    );
+    alert("Invalid value. Please select a number between 10 and 64.");
   } else {
     for (var i = 0; i < Number(userPasswordLength); i++) {
       generatedRandomPassword += getRandom(arrChosenCharacterTypes);
     }
-    
+
     return generatedRandomPassword;
   }
 }
@@ -209,9 +207,7 @@ function writePassword() {
 
   if (password === undefined) {
     passwordText.value =
-      "Try again! Remember to choose a NUMBER between 10 and 64 and AT LEAST ONE of the character types. Password length was: " +
-      passwordText.userPasswordLength +
-      "";
+      "Try again! Remember to choose a NUMBER between 10 and 64 and AT LEAST ONE of the character types.";
   }
 }
 
