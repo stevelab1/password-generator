@@ -88,21 +88,34 @@ var upperCasedCharacters = [
   "Z",
 ];
 
+// Final generated random password
+var generatedPassword = "";
+
 // Function to prompt user for password options
 function getPasswordOptions() {
-  // Length of password must be at least 10 characters but no more than 64
+  // Array of user chosen character-types to be included in password generation procedure
+  var arrChosenCharacterTypes = [];
+  // Failure to choose any character-type state
+  var noCharacterTypesChosen = true;
 
-  var userPasswordLength = prompt(
-    "How long do you want your password to be? Must be between 10 and 64 characters."
-  );
+  function getPasswordLength() {
+    // Length of password. User prompted that it must be between 10 and 64 characters
+    var userPasswordLength = prompt(
+      "Choose a password length between 10 and 64 characters long:"
+    );
 
-  // Validate if quantity of characters chosen by the user is a number
-  if (isNaN(Number(userPasswordLength))) {
-    alert("Invalid value. Please select a number between 10 and 64.");
-  } else {
-    alert("It is a number.");
+    // Validate if quantity of characters chosen by the user is a number between 10 and 64
+    if (
+      isNaN(Number(userPasswordLength)) ||
+      userPasswordLength > 64 ||
+      userPasswordLength < 10
+    ) {
+      userPasswordLength = prompt("Invalid value. Please select a number between 10 and 64:");
+    } else {
+      return userPasswordLength;
+    }
   }
-
+  getPasswordLength();
   // * Character types
   //     * Lowercase
   //     * Uppercase
@@ -110,18 +123,11 @@ function getPasswordOptions() {
   //     * Special characters ($@%&*, etc)
   // * Code should validate for each input and at least one character type should be selected
 
-  // if (userPasswordLength === "64") {
-  //   prompt("secure password: " + userPasswordLength);
-  // }
-
-  i;
-
   //validation check
 
   // typeof
 }
-getPasswordOptions();
-// Function for getting a random element from an array
+// Function for getting a  random element from an array
 function getRandom(arr) {
   //  randomly select from the array with random generator
   // forEach YES (not map as creates new array (make array please))? for loop?
@@ -150,7 +156,14 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
+  getPasswordOptions();
+
+  if (password === undefined) {
+    passwordText.value = "Try again! Remember to choose a NUMBER between 10 and 64 and AT LEAST ONE of the character types.";
+  } 
 }
+
+
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);

@@ -1,8 +1,11 @@
 # exclude everything
-images/*
+# images/*
 
 # exception to the rule
 
+# class files
+05-javascript-challenge-demo.png
+instructions.md
 
 # ignore all files starting with . or ~
 .*
