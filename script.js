@@ -98,28 +98,6 @@ function getPasswordOptions() {
   // Failure to choose any character-type state
   var noCharacterTypesChosen = true;
 
-  // couldn't get below to work with nested function
-  // function getPasswordLength() {
-  //   // Length of password. User prompted that it must be between 10 and 64 characters
-  //   var userPasswordLength = prompt(
-  //     "Choose a password length between 10 and 64 characters long:"
-  //   );
-
-  //   // Validate if quantity of characters chosen by the user is a number between 10 and 64
-  //   if (
-  //     isNaN(Number(userPasswordLength)) ||
-  //     userPasswordLength > 64 ||
-  //     userPasswordLength < 10
-  //   ) {
-  //     userPasswordLength = prompt(
-  //       "Invalid value. Please select a number between 10 and 64:"
-  //     );
-  //   } else {
-  //     return userPasswordLength;
-  //   }
-  // }
-  // getPasswordLength();
-
   // Character types options. Validate each input. At least one character type should be selected
   // Lowercase check
   if (
@@ -160,56 +138,50 @@ function getPasswordOptions() {
     return arrChosenCharacterTypes;
   }
 }
-// Function for getting a  random element from an array
+
+// Function for getting a random element from an array
 function getRandom(arr) {
-  //  randomly select from the array with random generator
-  // return arr[Math.floor(Math.random() * arr.length)];
-
   const randomIndex = Math.floor(Math.random() * arr.length);
-
   const item = arr[randomIndex];
-
   return item;
-}
-
-// Function to generate password with user input
-function generatePassword(arrChosenCharacterTypes) {
-  // Length of password. User prompted that it must be between 10 and 64 characters
-  var userPasswordLength = prompt(
-    "Choose a password length between 10 and 64 characters long:"
-  );
-
-  // Validate if quantity of characters chosen by the user is a number between 10 and 64
-  if (
-    isNaN(Number(userPasswordLength)) ||
-    userPasswordLength > 64 ||
-    userPasswordLength < 10
-  ) {
-    alert("Invalid value. Please select a number between 10 and 64.");
-  } else {
-    for (var i = 0; i < Number(userPasswordLength); i++) {
-      generatedRandomPassword += getRandom(arrChosenCharacterTypes);
-    }
-
-    return generatedRandomPassword;
   }
-}
-
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
-
-// Write password to the #password input
-function writePassword() {
+  
+  // Function to generate password with user input
+  function generatePassword(arrChosenCharacterTypes) {
+  // Length of password. User prompted that it must be between 10 and 64 characters
+  var userPasswordLength = prompt("Choose a password length between 10 and 64 characters long:");
+  
+  // Validate if quantity of characters chosen by the user is a number between 10 and 64
+  if (isNaN(Number(userPasswordLength)) || userPasswordLength > 64 || userPasswordLength < 10) {
+  alert("Invalid value. Please select a number between 10 and 64.");
+  return;
+  }
+  
+  let generatedRandomPassword = "";
+  for (var i = 0; i < Number(userPasswordLength); i++) {
+  generatedRandomPassword += getRandom(arrChosenCharacterTypes);
+  }
+  
+  return generatedRandomPassword;
+  }
+  
+  // Get references to the #generate element
+  var generateBtn = document.querySelector("#generate");
+  
+  // Write password to the #password input
+  function writePassword() {
   var password = generatePassword(getPasswordOptions());
   var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
+  
   if (password === undefined) {
-    passwordText.value =
-      "Try again! Remember to choose a NUMBER between 10 and 64 and AT LEAST ONE of the character types.";
+  passwordText.value = "Try again! Remember to choose a NUMBER between 10 and 64 and AT LEAST ONE of the character types.";
+  } else {
+  passwordText.value = password;
   }
-}
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+  }
+  
+  // Add event listener to generate button
+  generateBtn.addEventListener("click", writePassword);
+  
+  
+  
