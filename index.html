@@ -1,62 +1,88 @@
 <!DOCTYPE html>
 <html lang="en-gb">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Password Generator</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Password Generator</h1>
-      </header>
-      <div class="card">
-        <div class="card-header">
-          <h2>Generate a Password</h2>
-        </div>
-        <div class="card-body">
-          <textarea
-            readonly
-            id="password"
-            placeholder="Your Secure Password"
-            aria-label="Generated Password"
-          ></textarea>
-          <div class="options">
-            <div class="option">
-              <label for="password-length">Length:</label>
-              <input
-                type="range"
-                id="password-length"
-                min="1"
-                max="150"
-                value="16"
-              />
-              <span id="password-length-value">16</span>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <header>
+      <a href="https://github.com/stevelab1/password-generator" class="navbar-link">
+        <img
+          src="https://img.shields.io/badge/stevelab1-blue?style=pill&logo=github&logoColor=white&labelWidth=70&labelHeight=22&borderRadius=10"
+          alt="stevelab1" />
+      </a>
+      <h1>Password Generator</h1>
+    </header>
+    <div class="card">
+      <div class="card-header">
+        <h3>Generated Password</h3>
+      </div>
+      <div class="card-body">
+        <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
+      </div>
+
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Customise Your Password</h3>
+      </div>
+      <div class="card-body">
+        <div class="options">
+          <div class="option">
+            <label for="password-length">Length:</label>
+            <input type="range" id="password-length" min="1" max="150" value="16" />
+            <span id="password-length-value">16</span>
+          </div>
+          <div class="option">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="lowercase" checked />
+              <span class="checkmark"></span>
+              Lowercase
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" id="uppercase" checked />
+              <span class="checkmark"></span>
+              Uppercase
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" id="numbers" checked />
+              <span class="checkmark"></span>
+              Numbers
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" id="special" checked />
+              <span class="checkmark"></span>
+              Special Characters
+            </label>
+          </div>
+          
+          <div class="option">
+            <div class="form-group">
+              <label for="starts-with">Starts with:</label>
+              <input type="text" id="starts-with" maxlength="10" />
             </div>
-            <div class="option">
-              <label><input type="checkbox" id="lowercase" checked /> Lowercase</label>
-              <label><input type="checkbox" id="uppercase" checked /> Uppercase</label>
-              <label><input type="checkbox" id="numbers" checked /> Numbers</label>
-              <label><input type="checkbox" id="special" checked /> Special Characters</label>
-              <div class="form-group">
-                <label for="starts-with">Starts with:</label>
-                <input type="text" id="starts-with" maxlength="10" />
-              </div>
-              <div class="form-group">
-                <label for="ends-with">Ends with:</label>
-                <input type="text" id="ends-with" maxlength="10" />
-              </div>
+            <div class="form-group">
+              <label for="ends-with">Ends with:</label>
+              <input type="text" id="ends-with" maxlength="10" />
             </div>
           </div>
         </div>
-        <div class="card-footer">
-          <button id="generate" class="btn" disabled>Refresh Password</button>
-          <button id="copy" class="btn">Copy Password</button>
-        </div>
+      </div>
+      <div class="card-footer">
+        <button id="generate" class="btn" disabled>Refresh Password</button>
+        <button id="copy" class="btn">Copy Password</button>
       </div>
     </div>
-    <script src="script.js"></script>
-  </body>
+    <p id="copy-message" class="hidden">✓ Password copied to clipboard </p>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+
 </html>

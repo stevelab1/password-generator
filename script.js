@@ -106,12 +106,18 @@ endsWithInput.addEventListener("input", () => {
 });
 
 
-copyBtn.addEventListener("click", () => {
+document.getElementById('copy').addEventListener('click', () => {
+  const passwordField = document.getElementById('password');
   passwordField.select();
-  passwordField.setSelectionRange(0, 99999); // For mobile devices
+  passwordField.setSelectionRange(0, 99999);
+  document.execCommand('copy');
 
-  document.execCommand("copy");
-  alert("Copied the password to clipboard!");
+  // Show the "Password copied" message
+  const copyMessage = document.getElementById('copy-message');
+  copyMessage.classList.remove('hidden');
+  setTimeout(() => {
+    copyMessage.classList.add('hidden');
+  }, 3000);
 });
 
 
