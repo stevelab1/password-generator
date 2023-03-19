@@ -99,6 +99,12 @@ startsWithInput.addEventListener("input", () => {
   generateAndUpdatePassword();
 });
 
+const endsWithInput = document.querySelector("#ends-with");
+
+endsWithInput.addEventListener("input", () => {
+  generateAndUpdatePassword();
+});
+
 
 copyBtn.addEventListener("click", () => {
   passwordField.select();
@@ -148,28 +154,48 @@ function generatePassword() {
 
   const passwordLengthInt = parseInt(passwordLength.value, 10);
   const startsWith = document.querySelector("#starts-with").value;
+  const endsWith = document.querySelector("#ends-with").value;
   let result = startsWith;
 
-  for (let i = startsWith.length; i < passwordLengthInt; i++) {
+  const remainingLength = passwordLengthInt - startsWith.length - endsWith.length;
+
+  for (let i = 0; i < remainingLength; i++) {
     result += characters[Math.floor(Math.random() * characters.length)];
   }
 
+  result += endsWith;
+
   return result;
+}
+
+// Update the 'starts with' input based on the first character of the generated password
+function updateStartsWithInput() {
+  const currentPassword = document.querySelector("#password").value;
+  document.querySelector("#starts-with").value = currentPassword.charAt(0);
+}
+
+// Call this function after generating a new password
+function postGeneratePassword() {
+  updateStartsWithInput();
 }
 
 // Initialize the page
 function init() {
   // Set up event listeners for checkboxes first
   [lowercase, uppercase, numbers, special].forEach((checkbox) => {
-    checkbox.addEventListener("change", validateOptions);
+      checkbox.addEventListener("change", validateOptions);
   });
 
   // Call validateOptions() after setting up event listeners
   validateOptions();
   generateAndUpdatePassword();
+  postGeneratePassword();
 }
 
 init();
 
 // Add click event listener to generate button
-generateBtn.addEventListener("click", generateAndUpdatePassword);
+generateBtn.addEventListener("click", () => {
+  generateAndUpdatePassword();
+  postGeneratePassword();
+});
