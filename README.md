@@ -14,4 +14,3 @@ Application deployed at https://stevelab1.github.io/password-generator/
 
 The following image shows the web application's appearance and functionality:
 
-![password generator demo](./assets/05-javascript-challenge-demo.png)
