@@ -82,7 +82,6 @@ const upperCasedCharacters = [
   "Z",
 ];
 
-
 // Get references to elements
 const generateBtn = document.querySelector("#generate");
 const passwordLength = document.querySelector("#password-length");
@@ -93,33 +92,54 @@ const numbers = document.querySelector("#numbers");
 const special = document.querySelector("#special");
 const copyBtn = document.querySelector("#copy");
 const passwordField = document.querySelector("#password");
-const startsWithInput = document.querySelector("#starts-with");
+const startsWithInput = document.getElementById("starts-with");
+const endsWithInput = document.getElementById("ends-with");
+const warningMessage = document.createElement("p");
+warningMessage.classList.add("warning-message");
+warningMessage.style.display = "none";
 
 startsWithInput.addEventListener("input", () => {
   generateAndUpdatePassword();
 });
 
-const endsWithInput = document.querySelector("#ends-with");
-
 endsWithInput.addEventListener("input", () => {
   generateAndUpdatePassword();
 });
 
+function replaceSpacesWithDashesAndDisplayMessage(inputField) {
+  inputField.addEventListener("input", () => {
+    if (inputField.value.includes(" ")) {
+      inputField.value = inputField.value.replace(/\s+/g, "-");
+      warningMessage.innerText = "Spaces have been replaced with dashes.";
+      inputField.parentElement.appendChild(warningMessage);
+      warningMessage.style.display = "block";
+      setTimeout(() => {
+        warningMessage.style.display = "none";
+      }, 3000);
 
-document.getElementById('copy').addEventListener('click', () => {
-  const passwordField = document.getElementById('password');
+      generatePassword();
+    } else {
+      generatePassword();
+    }
+  });
+}
+
+replaceSpacesWithDashesAndDisplayMessage(startsWithInput);
+replaceSpacesWithDashesAndDisplayMessage(endsWithInput);
+
+document.getElementById("copy").addEventListener("click", () => {
+  const passwordField = document.getElementById("password");
   passwordField.select();
   passwordField.setSelectionRange(0, 99999);
-  document.execCommand('copy');
+  document.execCommand("copy");
 
   // Show the "Password copied" message
-  const copyMessage = document.getElementById('copy-message');
-  copyMessage.classList.remove('hidden');
+  const copyMessage = document.getElementById("copy-message");
+  copyMessage.classList.remove("hidden");
   setTimeout(() => {
-    copyMessage.classList.add('hidden');
+    copyMessage.classList.add("hidden");
   }, 3000);
 });
-
 
 // Update password length value on input change
 passwordLength.addEventListener("input", () => {
@@ -138,7 +158,10 @@ passwordLength.addEventListener("input", () => {
 // Validate options and enable/disable generate button accordingly
 function validateOptions() {
   const isChecked =
-    lowercase.checked || uppercase.checked || numbers.checked || special.checked;
+    lowercase.checked ||
+    uppercase.checked ||
+    numbers.checked ||
+    special.checked;
   generateBtn.disabled = !isChecked;
 }
 
@@ -163,7 +186,8 @@ function generatePassword() {
   const endsWith = document.querySelector("#ends-with").value;
   let result = startsWith;
 
-  const remainingLength = passwordLengthInt - startsWith.length - endsWith.length;
+  const remainingLength =
+    passwordLengthInt - startsWith.length - endsWith.length;
 
   for (let i = 0; i < remainingLength; i++) {
     result += characters[Math.floor(Math.random() * characters.length)];
@@ -171,8 +195,10 @@ function generatePassword() {
 
   result += endsWith;
 
+  passwordField.value = result;
   return result;
 }
+
 
 // Update the 'starts with' input based on the first character of the generated password
 function updateStartsWithInput() {
@@ -189,7 +215,7 @@ function postGeneratePassword() {
 function init() {
   // Set up event listeners for checkboxes first
   [lowercase, uppercase, numbers, special].forEach((checkbox) => {
-      checkbox.addEventListener("change", validateOptions);
+    checkbox.addEventListener("change", validateOptions);
   });
 
   // Call validateOptions() after setting up event listeners
