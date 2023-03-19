@@ -91,9 +91,14 @@ const lowercase = document.querySelector("#lowercase");
 const uppercase = document.querySelector("#uppercase");
 const numbers = document.querySelector("#numbers");
 const special = document.querySelector("#special");
-
 const copyBtn = document.querySelector("#copy");
 const passwordField = document.querySelector("#password");
+const startsWithInput = document.querySelector("#starts-with");
+
+startsWithInput.addEventListener("input", () => {
+  generateAndUpdatePassword();
+});
+
 
 copyBtn.addEventListener("click", () => {
   passwordField.select();
@@ -142,9 +147,10 @@ function generatePassword() {
   if (special.checked) characters.push(...specialCharacters);
 
   const passwordLengthInt = parseInt(passwordLength.value, 10);
-  let result = "";
+  const startsWith = document.querySelector("#starts-with").value;
+  let result = startsWith;
 
-  for (let i = 0; i < passwordLengthInt; i++) {
+  for (let i = startsWith.length; i < passwordLengthInt; i++) {
     result += characters[Math.floor(Math.random() * characters.length)];
   }
 
@@ -164,3 +170,6 @@ function init() {
 }
 
 init();
+
+// Add click event listener to generate button
+generateBtn.addEventListener("click", generateAndUpdatePassword);
