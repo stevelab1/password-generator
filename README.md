@@ -1,17 +1,9 @@
 # Password Generator
 
-## Overview
+Instantly generate a secure, random password in your browser. No information is stored about you or your password. 
 
-An application that an employee can use to generate a random password in the browser.
-
-The web app features dynamically updated HTML and CSS powered by JavaScript code.
+This version of the tool is vanilla JavaScript, CSS and HTML.
 
 The password can include special characters.
 
-Application deployed at https://stevelab1.github.io/password-generator/
-
-## Appearance and functionality
-
-The following image shows the web application's appearance and functionality:
-
-![password generator demo](./assets/05-javascript-challenge-demo.png)
+Application deployed to https://stevelab1.github.io/password-generator/
