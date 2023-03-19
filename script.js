@@ -1,5 +1,5 @@
-// Array of special characters to be included in password
-var specialCharacters = [
+// Array of characters to be included in password
+const specialCharacters = [
   "@",
   "%",
   "+",
@@ -24,12 +24,8 @@ var specialCharacters = [
   "_",
   ".",
 ];
-
-// Array of numeric characters to be included in password
-var numericCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-// Array of lowercase characters to be included in password
-var lowerCasedCharacters = [
+const numericCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const lowerCasedCharacters = [
   "a",
   "b",
   "c",
@@ -57,9 +53,7 @@ var lowerCasedCharacters = [
   "y",
   "z",
 ];
-
-// Array of uppercase characters to be included in password
-var upperCasedCharacters = [
+const upperCasedCharacters = [
   "A",
   "B",
   "C",
@@ -88,102 +82,73 @@ var upperCasedCharacters = [
   "Z",
 ];
 
-// Final generated random password
-var generatedRandomPassword = "";
 
-// Function to prompt user for password options
-function getPasswordOptions() {
-  // Length of password. User prompted that it must be between 10 and 64 characters
-  var userPasswordLength = prompt(
-    "Choose a password length between 10 and 64 characters long:"
-  );
+// Get references to elements
+const generateBtn = document.querySelector("#generate");
+const passwordLength = document.querySelector("#password-length");
+const passwordLengthValue = document.querySelector("#password-length-value");
+const lowercase = document.querySelector("#lowercase");
+const uppercase = document.querySelector("#uppercase");
+const numbers = document.querySelector("#numbers");
+const special = document.querySelector("#special");
 
-  // Validate if quantity of characters chosen by the user is a number between 10 and 64
-  if (
-    isNaN(Number(userPasswordLength)) ||
-    userPasswordLength > 64 ||
-    userPasswordLength < 10
-  ) {
-    alert("Invalid value. Please select a number between 10 and 64.");
-    return;
-  }
+// Update password length value on input change
+passwordLength.addEventListener("input", () => {
+  passwordLengthValue.textContent = passwordLength.value;
+  generateAndUpdatePassword();
+});
 
-  // Array of user chosen character-types to be included in password generation procedure
-  var arrChosenCharacterTypes = [];
-  // Failure to choose any character-type state
-  var noCharacterTypesChosen = true;
+// Update password generation options on checkbox change
+[lowercase, uppercase, numbers, special].forEach((checkbox) => {
+  checkbox.addEventListener("change", () => {
+    validateOptions();
+    generateAndUpdatePassword();
+  });
+});
 
-  // Character types options. Validate each input. At least one character type should be selected
-  // Lowercase check
-  if (
-    confirm("Would you like to include lowercase letters in your password?")
-  ) {
-    noCharacterTypesChosen = false;
-    arrChosenCharacterTypes =
-      arrChosenCharacterTypes.concat(lowerCasedCharacters);
-  }
-  // Uppercase
-  if (
-    confirm("Would you like to include uppercase letters in your password?")
-  ) {
-    noCharacterTypesChosen = false;
-    arrChosenCharacterTypes =
-      arrChosenCharacterTypes.concat(upperCasedCharacters);
-  }
-  // Numeric
-  if (
-    confirm("Would you like to include numeric characters in your password?")
-  ) {
-    noCharacterTypesChosen = false;
-    arrChosenCharacterTypes = arrChosenCharacterTypes.concat(numericCharacters);
-  }
-  // Special characters ($@%&*, etc)
-  if (
-    confirm("Would you like to include special characters in your password?")
-  ) {
-    noCharacterTypesChosen = false;
-    arrChosenCharacterTypes = arrChosenCharacterTypes.concat(specialCharacters);
-  }
-  // Validate at least one character type selected
-  if (noCharacterTypesChosen) {
-    alert(
-      "You must select at least one character type to include in your password."
-    );
-    return;
-  } else {
-    return { arrChosenCharacterTypes, userPasswordLength };
+// Validate options and enable/disable generate button accordingly
+function validateOptions() {
+  const isChecked =
+    lowercase.checked || uppercase.checked || numbers.checked || special.checked;
+  generateBtn.disabled = !isChecked;
+}
+
+// Generate password and update the textarea
+function generateAndUpdatePassword() {
+  if (!generateBtn.disabled) {
+    const newPassword = generatePassword();
+    document.querySelector("#password").value = newPassword;
   }
 }
 
-// Function for getting a random element from an array
-function getRandom(arr) {
-  const randomIndex = Math.floor(Math.random() * arr.length);
-  const item = arr[randomIndex];
-  return item;
-}
+// Generate password based on selected options
+function generatePassword() {
+  const characters = [];
+  if (lowercase.checked) characters.push(...lowerCasedCharacters);
+  if (uppercase.checked) characters.push(...upperCasedCharacters);
+  if (numbers.checked) characters.push(...numericCharacters);
+  if (special.checked) characters.push(...specialCharacters);
 
-// Function to generate password with user input
-function generatePassword(options) {
-  let { arrChosenCharacterTypes, userPasswordLength } = options;
+  const passwordLengthInt = parseInt(passwordLength.value, 10);
+  let result = "";
 
-  let generatedRandomPassword = "";
-  for (var i = 0; i < Number(userPasswordLength); i++) {
-    generatedRandomPassword += getRandom(arrChosenCharacterTypes);
+  for (let i = 0; i < passwordLengthInt; i++) {
+    result += characters[Math.floor(Math.random() * characters.length)];
   }
 
-  return generatedRandomPassword;
+  return result;
 }
 
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
+// Initialize the page
+function init() {
+  // Set up event listeners for checkboxes first
+  [lowercase, uppercase, numbers, special].forEach((checkbox) => {
+    checkbox.addEventListener("change", validateOptions);
+  });
 
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword(getPasswordOptions());
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
+  // Call validateOptions() after setting up event listeners
+  validateOptions();
+  generateAndUpdatePassword();
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+init();
