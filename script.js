@@ -92,6 +92,18 @@ const uppercase = document.querySelector("#uppercase");
 const numbers = document.querySelector("#numbers");
 const special = document.querySelector("#special");
 
+const copyBtn = document.querySelector("#copy");
+const passwordField = document.querySelector("#password");
+
+copyBtn.addEventListener("click", () => {
+  passwordField.select();
+  passwordField.setSelectionRange(0, 99999); // For mobile devices
+
+  document.execCommand("copy");
+  alert("Copied the password to clipboard!");
+});
+
+
 // Update password length value on input change
 passwordLength.addEventListener("input", () => {
   passwordLengthValue.textContent = passwordLength.value;

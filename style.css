@@ -112,6 +112,11 @@ header {
   .float-right {
   float: right;
   }
+
+  .copy-btn {
+    margin-top: 10px;
+  }
+  
   
   /* Textarea styles */
   #password {
