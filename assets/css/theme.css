@@ -1,0 +1,154 @@
+:root {
+    --background-color: #f9fbfd;
+    --text-color: hsl(206, 17%, 28%);
+    --card-background-light: #fff;
+    --card-color-light: #333;
+    --card-background-dark: #444;
+    --card-color-dark: #ccc;
+  }
+  
+  /* Dark mode styles */
+  body.dark-mode {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .dark-mode .card {
+    background-color: var(--card-background-dark);
+    color: var(--card-color-dark);
+  }
+  
+  .dark-mode h1,
+  .dark-mode h2,
+  .dark-mode h3,
+  .dark-mode h4,
+  .dark-mode h5,
+  .dark-mode h6,
+  .dark-mode p,
+  .dark-mode span,
+  .dark-mode div {
+    color: #fff;
+  }
+  
+  /* Light mode styles */
+  body.light-mode {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .card {
+    transition: background-color 0.3s;
+  }
+  
+  .card.light-mode {
+    background-color: var(--card-background-light);
+    color: var(--card-color-light);
+  }
+  
+  .light-mode h1,
+  .light-mode h2,
+  .light-mode h3,
+  .light-mode h4,
+  .light-mode h5,
+  .light-mode h6,
+  .light-mode p,
+  .light-mode span,
+  .light-mode div {
+    color: var(--text-color);
+  }
+  
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  span,
+  div {
+    transition: color 0.3s;
+  }
+  
+  /* theme toggle label */
+.toggle-container {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    margin: 0 8px;
+    border-radius: 16px;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+  }
+  
+  
+  /* Hide the checkbox */
+  .theme-toggle-checkbox {
+    display: none;
+  }
+  
+  .toggle-switch::before {
+    content: "";
+    position: absolute;
+    top: 60%;
+    left: 37%;
+    width: 20px;
+    height: 20px;
+    margin-top: -12px;
+    margin-left: -12px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: transform 0.3s;
+  }
+  
+  .theme-toggle-checkbox:checked + .toggle-switch::before {
+    transform: translateX(16px);
+    background-color: #000;
+  }
+  
+  /* theme icons */
+  .theme-icons {
+    display: inline-block;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    margin-bottom: 9px;
+  }
+
+  .theme-icons i {
+    display: none;
+  }
+  
+  body.dark-mode .theme-icons .fa-moon {
+    display: block;
+  }
+  
+  body.light-mode .theme-icons .fa-sun {
+    display: block;
+    color: orange;
+  }
+  
+  body.dark-mode .theme-icons .fa-sun {
+    display: none;
+  }
+  
+  body.light-mode .theme-icons .fa-moon {
+    display: none;
+  }
+  
+  /* label text */
+  .label-text {
+    font-size: 1rem;
+    margin-left: 8px;
+  }
+  

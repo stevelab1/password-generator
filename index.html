@@ -6,7 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Password Generator</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/theme.css" />
+  <script defer src="assets/js/script.js"></script>
+  <script defer src="assets/js/theme.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -17,6 +22,20 @@
           src="https://img.shields.io/badge/stevelab1-blue?style=pill&logo=github&logoColor=white&labelWidth=70&labelHeight=22&borderRadius=10"
           alt="stevelab1" />
       </a>
+
+      <!-- theme toggle -->
+      <div class="theme-toggle">
+        <label class="toggle-container">
+          <input type="checkbox" class="theme-toggle-checkbox" id="mode-toggle">
+          <span class="toggle-switch"></span>
+        </label>
+
+        <div class="theme-icons">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+        </div>
+      </div>
+
       <h1>Password Generator</h1>
     </header>
     <div class="card">
@@ -61,7 +80,7 @@
               Special Characters
             </label>
           </div>
-          
+
           <div class="option">
             <div class="form-group">
               <label for="starts-with">Starts with:</label>
@@ -82,7 +101,6 @@
     <p id="copy-message" class="hidden">✓ Password copied to clipboard </p>
 
   </div>
-  <script src="script.js"></script>
 </body>
 
 </html>
