@@ -1,12 +1,3 @@
-# exclude everything
-# images/*
-
-# exception to the rule
-
-# class files
-# 05-javascript-challenge-demo.png
-instructions.md
-
 # ignore all files starting with . or ~
 .*
 ~*
@@ -17,24 +8,10 @@ node_modules/
 # Ignore /build directory.
 /build
 
-# ignore composer vendor directory
-/vendor
-
-# ignore components loaded via Bower
-/bower_components
-
-# ignore jekyll build directory
-/_site
-
 # ignore OS generated files
 ehthumbs.db
 Thumbs.db
 .DS_Store
-
-# ignore Editor files
-*.sublime-project
-*.sublime-workspace
-*.komodoproject
 
 # ignore log files and databases
 *.log
